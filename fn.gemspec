@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["wild.fauve@gmail.com"]
 
   spec.summary       = %q{Useful Higher Order Ruby Functions.}
-  spec.homepage      = "www.fauve.io"
+  spec.homepage      = "https://github.com/wildfauve/fn"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
