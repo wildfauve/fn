@@ -1,6 +1,6 @@
 RSpec.describe Fn::Fn do
 
-  context 'fmap_compose' do
+  context '#fmap_compose' do
 
     it 'runs all fns and returns success' do
       f1 = ->(v) { M.Success(v + 1) }
@@ -21,6 +21,16 @@ RSpec.describe Fn::Fn do
       expect(result.failure).to eq 1
     end
 
+  end
+
+  context '#wrapper' do
+
+    it 'wraps the curried function which is then called' do
+      fn = -> x, y { x + y }.curry
+      result = Fn::Fn.wrapper(fn.(1).(2))
+
+      expect(result.()).to eq 3
+    end
 
   end
 

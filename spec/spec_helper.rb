@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "fn"
+require 'pry'
 
 M = Dry::Monads
 

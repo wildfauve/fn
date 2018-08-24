@@ -228,6 +228,10 @@ module Fn
         }.curry
       end
 
+      def wrapper(f)
+        -> { f }
+      end
+
     end # class Self
 
   end  # class
