@@ -1,4 +1,3 @@
-require "rails_helper"
 RSpec.describe Fn::Fn do
 
   context 'fmap_compose' do
