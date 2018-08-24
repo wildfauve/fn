@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fn (0.1.1)
+    fn (0.1.2)
       dry-monads (~> 1.0)
 
 GEM

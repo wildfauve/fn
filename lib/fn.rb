@@ -3,5 +3,5 @@ require 'dry/monads/result'
 require 'dry/monads/try'
 
 module Fn
-  require './lib/fn/fn'
+  autoload :Fn, 'fn/fn'
 end
