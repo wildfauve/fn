@@ -138,7 +138,7 @@ module Fn
         ->(f, enum) { f.(enum)}.curry
       end
 
-        def equality
+      def equality
         ->( field, value, i ) { i[field] == value }.curry
       end
 
@@ -228,6 +228,8 @@ module Fn
         }.curry
       end
 
-    end
+    end # class Self
 
-  end
+  end  # class
+
+end  # module
