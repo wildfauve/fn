@@ -197,6 +197,10 @@ module Fn
         ->(v) { v.value_or }
       end
 
+      def maybe_value_fail?
+        -> v { v.failure }
+      end
+
       def status_value_ok?
         ->(v) { v.status == :ok }
       end
@@ -231,6 +235,21 @@ module Fn
       def wrapper(f)
         -> { f }
       end
+
+      def detokeniser(delimiter)
+        ->(str) { str.split(delimiter) }.curry
+      end
+
+      def maybe_pipeline
+        ->(pipeline) {
+          Success(lambda do |value|
+            pipeline.inject(value) do |result, fn|
+              result.success? ? result.fmap(fn).value_or : result
+            end
+          end)
+        }
+      end
+
 
     end # class Self
 
