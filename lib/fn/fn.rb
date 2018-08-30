@@ -181,6 +181,14 @@ module Fn
         -> limit, i { i > limit ? limit : i }.curry
       end
 
+      # Takes a structure (like a Monad), an OK test fn, and a fn to extract when OK
+      # Returns the result of f, otherwise nil
+      # > lift_value.(maybe_value_ok?, maybe_value),
+      def lift_monad
+        -> value { maybe_value_ok?.(value) ? maybe_value_ok?.(value) : maybe_fail_value.(value) }
+      end
+
+
       def failure
         -> v { Failure(v) }
       end
@@ -217,6 +225,11 @@ module Fn
         -> args { binding.pry }
       end
 
+      def empty?
+        -> xs { xs.empty? }
+      end
+
+
       def remove_nil
         Fn.remove.(->(i) { i.nil? } )
       end
@@ -236,6 +249,14 @@ module Fn
         -> { f }
       end
 
+      # Provide a delimiter (such as "|")
+      # Returns a curryed fn that takes 2 params:
+      # @param f, a function that extracts a property from a map
+      # @param enum, the map
+      def delimiter_tokeniser
+        -> delimiter, f, enum { f.(enum).join(delimiter) }.curry
+      end
+      
       def detokeniser(delimiter)
         ->(str) { str.split(delimiter) }.curry
       end
