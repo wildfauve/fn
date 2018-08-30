@@ -229,6 +229,9 @@ module Fn
         -> xs { xs.empty? }
       end
 
+      def present?
+        -> x { x.present? }
+      end
 
       def remove_nil
         Fn.remove.(->(i) { i.nil? } )
@@ -256,7 +259,7 @@ module Fn
       def delimiter_tokeniser
         -> delimiter, f, enum { f.(enum).join(delimiter) }.curry
       end
-      
+
       def detokeniser(delimiter)
         ->(str) { str.split(delimiter) }.curry
       end
