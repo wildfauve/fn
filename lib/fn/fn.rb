@@ -202,7 +202,7 @@ module Fn
       end
 
       def maybe_value_fail?
-        -> v { v.failure }
+        -> v { v.failure? }
       end
 
       def maybe_value
@@ -237,6 +237,10 @@ module Fn
         -> x { x.present? }
       end
 
+      def nothing
+        -> x { nil }
+      end
+
       def remove_nil
         Fn.remove.(->(i) { i.nil? } )
       end
@@ -250,10 +254,6 @@ module Fn
           f.(Set.new(this) - Set.new(prev))
           g.(Set.new(prev) - Set.new(this))
         }.curry
-      end
-
-      def wrapper(f)
-        -> { f }
       end
 
       # Provide a delimiter (such as "|")
