@@ -102,15 +102,15 @@ module Fn
         ->(t, f_ok, f_fail, value) { t.(value) ? f_ok.(value) : f_fail.(value) }.curry
       end
 
-      # f: a test fn to apply to the enum resulting from applying the tests; e.g. Fn.all? (and) or Fn.any? (or)
-      # ts: [test_fn]; each test is called with (v)
-      # v:  the test context
+      # success_fn: a test fn to apply to the enum resulting from applying the tests; e.g. Fn.all? (and) or Fn.any? (or)
+      # test_fns  : [test_fn]; each test is called with (v)
+      # value_or  :  the test context (can be anything understood by the tests)
       def tests
-        -> f, ts, v {
+        -> success_fn, test_fns, value {
           Fn.compose.(
-            f.(Fn.identity),
-            Fn.map.(-> t { t.(v) } )
-          ).(ts)
+            success_fn.(Fn.identity),                   # provide a results extractor fn to the success_fn
+            Fn.map.(-> test_fn { test_fn.(value) } )    # call each test fn with the context
+          ).(test_fns)
         }.curry
       end
 
@@ -129,6 +129,13 @@ module Fn
         ->(fns, value) {
           fns.inject(value) {|result, fn| result.success? ? result.fmap(fn).value_or : result}
         }.curry
+      end
+
+      # reverse version of fmap_compose
+      def fmapr_compose
+        ->(*fns) {
+          -> x { fns.reverse.inject(x) {|x, fn| x.success? ? x.fmap(fn).value_or : x} }
+        }
       end
 
 
