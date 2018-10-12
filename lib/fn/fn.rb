@@ -138,7 +138,6 @@ module Fn
         }
       end
 
-
       # Apply that takes a function and an enum and applies the fn to the entire enum
       # Works with methods like #join, #split
       def apply
